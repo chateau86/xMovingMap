@@ -1,4 +1,4 @@
-package com.chateau86.xmovingmap;
+package com.chateau86.xmovingmap.Activities;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -10,12 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.chateau86.xmovingmap.Activities.search.SearchActivity;
+import com.chateau86.xmovingmap.R;
 import com.chateau86.xmovingmap.model.NavaidDatabase;
 import com.chateau86.xmovingmap.model.NavaidDatabaseHolder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class SplashScreenActivity extends AppCompatActivity {

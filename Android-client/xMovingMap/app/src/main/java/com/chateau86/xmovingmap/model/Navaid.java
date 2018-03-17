@@ -5,6 +5,7 @@ package com.chateau86.xmovingmap.model;
  */
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -14,11 +15,15 @@ public class Navaid {
     @NonNull
     public String uniqueIdent;
 
-    public final int xpID;
-    public final double lat;
-    public final double lon;
-    public int lat_cell;
-    public int lon_cell;
+    public int xpID;
+    public double lat; //deg
+    public double lon; //deg
+    public double sin_lat;
+    public double cos_lat;
+    public double sin_lon;
+    public double cos_lon;
+    //public int lat_cell;
+    //public int lon_cell;
     public int elev; //ft
     public int freq; //(x0.1MHz)
     public int maxRange; //nmi
@@ -30,9 +35,9 @@ public class Navaid {
     Navaid(int xpID, double lat, double lon, int elev, int freq, int maxRange, String ident, String termRegion, String ICAORegion, String name){
         this.xpID = xpID;
         this.lat = lat;
-        this.lat_cell = (int) lat;
+        //this.lat_cell = (int) lat;
         this.lon = lon;
-        this.lon_cell = (int) lon;
+        //this.lon_cell = (int) lon;
         this.elev = elev;
         this.freq = freq;
         this.maxRange = maxRange;
@@ -41,6 +46,14 @@ public class Navaid {
         this.ICAORegion = ICAORegion;
         this.name = name;
         this.uniqueIdent = xpID + ICAORegion + termRegion + ident;
+
+        //Because SQLite can't do trig
+        // https://github.com/sozialhelden/wheelmap-android/wiki/Sqlite,-Distance-calculations
+
+        this.sin_lat = Math.sin(Math.toRadians(lat));
+        this.cos_lat = Math.cos(Math.toRadians(lat));
+        this.sin_lon = Math.sin(Math.toRadians(lon));
+        this.cos_lon = Math.cos(Math.toRadians(lon));
     }
 
     public NavaidType getType(){
@@ -48,7 +61,7 @@ public class Navaid {
     }
 
     public String toString(){
-        return ICAORegion+" "+termRegion+" "+ident+" ("+freq+"): "+name;
+        return ident+" ("+freq+"): "+name;
     }
 
 }

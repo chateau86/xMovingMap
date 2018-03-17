@@ -15,8 +15,21 @@ public interface NavaidDAO {
     @Query("SELECT * FROM Navaid")
     List<Navaid> getAll();
 
-    @Query("SELECT * FROM Navaid WHERE (lat_cell BETWEEN :lat_cell-1 AND :lat_cell+1) AND (lon_cell BETWEEN :lon_cell-1 AND :lon_cell+1)")
-    List<Navaid> getAllNearby(int lat_cell, double lon_cell);
+    @Query("SELECT * FROM Navaid " +
+                "WHERE freq > 0 " +
+                "AND (xpID != 4 AND xpID != 6) " +
+                "AND (lat BETWEEN :lat-3 AND :lat+3) " +
+                "AND (lon BETWEEN :lon-3 AND :lon+3)")
+    List<Navaid> getAllNearby(double lat, double lon);
+
+    @Query("SELECT * FROM Navaid " +
+                "WHERE freq > 0 " +
+                "AND (xpID != 4 AND xpID != 6) " +
+                "AND (lat BETWEEN :lat-3 AND :lat+3) " +
+                "AND (lon BETWEEN :lon-3 AND :lon+3)" +
+            "ORDER BY (sin_lat*:sin_lat+ cos_lat*:cos_lat*(sin_lon*:sin_lon + cos_lon*:cos_lon)) desc")
+    List<Navaid> getAllNearby_sorted(double lat, double lon, double sin_lat, double cos_lat, double sin_lon, double cos_lon);
+
 
     @Insert
     void insertAll(Navaid... navaids);
