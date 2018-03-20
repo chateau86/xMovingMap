@@ -39,17 +39,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         loadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("xMovingMap", "Calling database init");
-                //TODO: Actually init database
-                BufferedReader in_txt = new BufferedReader(new InputStreamReader(getApplicationContext().getResources().openRawResource(R.raw.earth_nav)));
-                try {
-                    NavaidDatabaseHolder.getInstance().initDatabase(in_txt);
-                    int count = NavaidDatabaseHolder.getInstance().navaidDAO().getRowCount();
-                    textbox.setText("Row count: "+ count);
-                } catch (IOException e){
-                    textbox.setText("DB read error: "+ e);
-                    //do nothing for now
-                }
+                Context context = view.getContext();
+                Intent intent = new Intent(context, LoadDatabaseActivity.class);
+                context.startActivity(intent);
             }
         });
 

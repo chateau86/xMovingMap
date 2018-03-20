@@ -39,9 +39,9 @@ public class SearchActivity extends AppCompatActivity {
                 double lat = Double.parseDouble(lat_box.getText().toString());
                 double lon = Double.parseDouble(lon_box.getText().toString());
                 List<Navaid> navaids = NavaidDatabaseHolder.getInstance().navaidDAO()
-                                            .getAllNearby_sorted(
-                                                    lat,
-                                                    lon,
+                                            .getAllNearby_sorted_nowindow(
+                                                    //lat,
+                                                    //lon,
                                                     Math.sin(Math.toRadians(lat)),
                                                     Math.cos(Math.toRadians(lat)),
                                                     Math.sin(Math.toRadians(lon)),

@@ -47,7 +47,7 @@ public class Navaid {
         this.name = name;
         this.uniqueIdent = xpID + ICAORegion + termRegion + ident;
 
-        //Because SQLite can't do trig
+        //Because SQLite can't do trig: Need to keep sin(), cos() of lat/lon
         // https://github.com/sozialhelden/wheelmap-android/wiki/Sqlite,-Distance-calculations
 
         this.sin_lat = Math.sin(Math.toRadians(lat));
@@ -61,7 +61,11 @@ public class Navaid {
     }
 
     public String toString(){
-        return ident+" ("+freq+"): "+name;
+        if(freq < 10000) {
+            return ident + " (" + freq + "): " + name;
+        } else {
+            return ident + " (" + String.format("%.02f", ((double)freq)/100) + "): " + name;
+        }
     }
 
 }

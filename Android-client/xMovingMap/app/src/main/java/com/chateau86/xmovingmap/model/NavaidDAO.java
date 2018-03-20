@@ -30,6 +30,13 @@ public interface NavaidDAO {
             "ORDER BY (sin_lat*:sin_lat+ cos_lat*:cos_lat*(sin_lon*:sin_lon + cos_lon*:cos_lon)) desc")
     List<Navaid> getAllNearby_sorted(double lat, double lon, double sin_lat, double cos_lat, double sin_lon, double cos_lon);
 
+    @Query("SELECT * FROM Navaid " +
+            "WHERE freq > 0 " +
+            "AND (xpID != 4 AND xpID != 6) " +
+            //"AND (lat BETWEEN :lat-30 AND :lat+30) " +
+            //"AND (lon BETWEEN :lon-30 AND :lon+30)" +
+            "ORDER BY (sin_lat*:sin_lat+ cos_lat*:cos_lat*(sin_lon*:sin_lon + cos_lon*:cos_lon)) desc LIMIT 50")
+    List<Navaid> getAllNearby_sorted_nowindow(double sin_lat, double cos_lat, double sin_lon, double cos_lon);
 
     @Insert
     void insertAll(Navaid... navaids);
