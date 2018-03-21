@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.search.SearchActivity" />
-        <activity android:name=".Activities.LoadDatabaseActivity"></activity>
+        <activity android:name=".Activities.LoadDatabaseActivity" />
+        <activity android:name=".Activities.search.NetworkSetup"></activity>
     </application>
 
 </manifest>
