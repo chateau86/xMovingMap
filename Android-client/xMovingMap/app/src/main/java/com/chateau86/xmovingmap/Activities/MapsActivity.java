@@ -54,7 +54,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         for(Navaid n: navaid_list){
             LatLng loc = new LatLng(n.lat, n.lon);
-            mMap.addMarker(new MarkerOptions().position(loc).title(n.ident));
+            mMap.addMarker(new MarkerOptions()
+                    .position(loc)
+                    .title(n.ident)
+                    .snippet(n.freq+": "+n.name));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
     }
