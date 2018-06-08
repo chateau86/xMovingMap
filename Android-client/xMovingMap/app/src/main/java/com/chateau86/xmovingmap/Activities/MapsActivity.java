@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions()
                     .position(loc)
                     .title(n.ident)
-                    .snippet(n.freq+": "+n.name));
+                    .snippet(n.toString()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
     }
