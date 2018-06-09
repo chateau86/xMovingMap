@@ -23,6 +23,13 @@ public interface NavaidDAO {
     List<Navaid> getAllNearby(double lat, double lon);
 
     @Query("SELECT * FROM Navaid " +
+            "WHERE freq > 0 " +
+            "AND (xpID != 4 AND xpID != 6) " +
+            "AND (lat BETWEEN :lat_min AND :lat_max) " +
+            "AND (lon BETWEEN :lon_min AND :lon_max)")
+    List<Navaid> getWindowNearby(double lat_min, double lat_max, double lon_min, double lon_max);
+
+    @Query("SELECT * FROM Navaid " +
                 "WHERE freq > 0 " +
                 "AND (xpID != 4 AND xpID != 6) " +
                 "AND (lat BETWEEN :lat-3 AND :lat+3) " +
@@ -33,8 +40,6 @@ public interface NavaidDAO {
     @Query("SELECT * FROM Navaid " +
             "WHERE freq > 0 " +
             "AND (xpID != 4 AND xpID != 6) " +
-            //"AND (lat BETWEEN :lat-30 AND :lat+30) " +
-            //"AND (lon BETWEEN :lon-30 AND :lon+30)" +
             "ORDER BY (sin_lat*:sin_lat+ cos_lat*:cos_lat*(sin_lon*:sin_lon + cos_lon*:cos_lon)) desc LIMIT 50")
     List<Navaid> getAllNearby_sorted_nowindow(double sin_lat, double cos_lat, double sin_lon, double cos_lon);
 
