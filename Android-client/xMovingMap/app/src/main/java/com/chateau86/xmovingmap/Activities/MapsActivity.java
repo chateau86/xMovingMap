@@ -132,12 +132,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                         Marker m;
                         if(icon == null) {
-                            m = mMap.addMarker(new MarkerOptions()
+                            /*m = mMap.addMarker(new MarkerOptions()
                                     .position(loc)
                                     .title(n.ident)
                                     .snippet(n.toString())
                                     .zIndex(-1.0f)
-                            );
+                            );*/
+                            continue;
                         } else {
                             m = mMap.addMarker(new MarkerOptions()
                                     .position(loc)
@@ -147,6 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             );
                         }
                         visibleMarkers.put(n.ident, m);
+
                     }
                 }
 
